@@ -42,16 +42,16 @@ class Fakultas extends CI_Controller {
 
                 redirect('fakultas');
             }
-
-            $data['fakultas'] = null;
-            $data['action'] = base_url('fakultas/tambah');
-            $data['button'] = 'Simpan';
-
-            $header['title'] ='Tambah Data Fakultas';
-            $this->load->view('layout/header', $header);
-            $this->load->view('fakultas/form', $data);
-            $this->load->view('layout/footer');
         }
+
+        $data['fakultas'] = null;
+        $data['action'] = base_url('fakultas/tambah');
+        $data['button'] = 'Simpan';
+        
+        $header['title'] ='Tambah Data Fakultas';
+        $this->load->view('layout/header', $header);
+        $this->load->view('fakultas/form', $data);
+        $this->load->view('layout/footer');
     }
 
     public function ubah($id){
