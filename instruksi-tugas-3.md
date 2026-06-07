@@ -21,9 +21,9 @@ views/mahasiswa/form.php      → Form tambah & ubah (satu view, dibedakan oleh 
 
 ### Pola Controller (CRUD)
 
-| Method   | Fungsi                                                                  |
-|----------|-------------------------------------------------------------------------|
-| `index`  | Mengambil semua data via Model, kirim ke view tabel                     |
+| Method     | Fungsi                                                                    |
+| ---------- | ------------------------------------------------------------------------- |
+| `index`  | Mengambil semua data via Model, kirim ke view tabel                       |
 | `tambah` | Tampilkan form. Jika POST & validasi lolos → insert → redirect + swal   |
 | `ubah`   | Ambil data by ID. Jika POST & validasi lolos → update → redirect + swal |
 | `hapus`  | Cek data by ID. Jika ada → delete → redirect + swal warning             |
@@ -86,10 +86,10 @@ if (!$data) {
 
 Sesuai file `tugas-3.sql`:
 
-| Kolom           | Tipe         | Keterangan                                         |
-|-----------------|--------------|----------------------------------------------------|
-| `fakultas_id`   | INT, PK      | Primary key (manual ID)                            |
-| `fakultas_name` | VARCHAR(100) | Nama fakultas                                      |
+| Kolom             | Tipe         | Keterangan              |
+| ----------------- | ------------ | ----------------------- |
+| `fakultas_id`   | INT, PK      | Primary key (manual ID) |
+| `fakultas_name` | VARCHAR(100) | Nama fakultas           |
 
 ### File yang Dibuat
 
@@ -114,6 +114,7 @@ Buat dengan pola yang sama seperti `Mahasiswa.php`:
 ### Model `FakultasModel.php`
 
 Method yang dibutuhkan:
+
 - `getAll()` — return semua data fakultas
 - `getById($id)` — return satu data berdasarkan `fakultas_id`
 - `insert($data)` — insert data baru
@@ -132,6 +133,7 @@ Tabel dengan kolom:
 ### View `fakultas/form.php`
 
 Form dengan field:
+
 1. **Nama Fakultas** — `<input type="text">` name=`fakultas_name` dengan validasi is-invalid/is-valid
 
 ---
@@ -142,12 +144,12 @@ Form dengan field:
 
 Sesuai file `tugas-3.sql`:
 
-| Kolom           | Tipe         | Keterangan                                         |
-|-----------------|--------------|----------------------------------------------------|
-| `prodi_id`      | INT, PK      | Primary key (manual ID)                            |
-| `fakultas_id`   | INT, FK      | Foreign key ke tabel fakultas (ON DELETE CASCADE)  |
-| `prodi_name`    | VARCHAR(100) | Nama program studi                                 |
-| `prodi_strata`  | VARCHAR(10)  | Jenjang strata (D3, S1, S2)                        |
+| Kolom            | Tipe         | Keterangan                                        |
+| ---------------- | ------------ | ------------------------------------------------- |
+| `prodi_id`     | INT, PK      | Primary key (manual ID)                           |
+| `fakultas_id`  | INT, FK      | Foreign key ke tabel fakultas (ON DELETE CASCADE) |
+| `prodi_name`   | VARCHAR(100) | Nama program studi                                |
+| `prodi_strata` | VARCHAR(10)  | Jenjang strata (D3, S1, S2)                       |
 
 ### File yang Dibuat
 
@@ -162,7 +164,7 @@ views/prodi/form.php
 
 - **`__construct`**: Cek session login, load `ProdiModel` dan `FakultasModel`
 - **`index`**: Ambil semua data prodi (JOIN dengan fakultas untuk tampilkan nama fakultas), tampilkan di tabel
-- **`tambah`**: 
+- **`tambah`**:
   - Ambil data semua fakultas untuk dropdown select
   - Validasi:
     - `fakultas_id`: required, numeric
@@ -174,6 +176,7 @@ views/prodi/form.php
 ### Model `ProdiModel.php`
 
 Method yang dibutuhkan:
+
 - `getAll()` — SELECT dengan JOIN ke tabel fakultas (agar bisa tampilkan nama fakultas)
 - `getById($id)` — return satu data berdasarkan `prodi_id`
 - `insert($data)` — insert data baru
@@ -181,6 +184,7 @@ Method yang dibutuhkan:
 - `delete($id)` — hapus berdasarkan `prodi_id`
 
 Contoh `getAll()` dengan JOIN:
+
 ```php
 public function getAll()
 {
@@ -221,12 +225,11 @@ Form dengan field:
    ```
 
    Di controller, pastikan kirim data fakultas ke view:
+
    ```php
    $data['fakultas'] = $this->FakultasModel->getAll();
    ```
-
 2. **Nama Program Studi** — `<input type="text">` name=`prodi_name` dengan validasi
-
 3. **Strata** — **Radio Button** dengan pilihan D3, S1, S2
 
    ```html
@@ -250,22 +253,23 @@ Form dengan field:
        <?php endif; ?>
    </div>
    ```
+
 ---
 
 ## Checklist Sebelum Selesai
 
-- [ ] Tabel `fakultas` dan `prodi` sudah dibuat di database (import `tugas-3.sql`)
-- [ ] CRUD Fakultas berfungsi (index, tambah, ubah, hapus)
-- [ ] CRUD Program Studi berfungsi (index, tambah, ubah, hapus)
-- [ ] Form Program Studi memiliki **select dropdown** untuk memilih Fakultas
-- [ ] Form Program Studi memiliki **radio button** untuk memilih Strata
-- [ ] Validasi server-side berfungsi di semua form (merah jika salah, hijau jika benar)
-- [ ] Isi form lama tetap muncul (repopulate) saat validasi gagal
-- [ ] SweetAlert muncul setelah tambah/ubah berhasil (success) dan setelah hapus (warning)
-- [ ] SweetAlert konfirmasi muncul sebelum hapus (otomatis dari class `btn-hapus`)
-- [ ] Jika data tidak ditemukan → redirect + SweetAlert warning
-- [ ] Sidebar menu Fakultas dan Program Studi aktif (bold) sesuai halaman yang dibuka
-- [ ] DataTable aktif di halaman index Fakultas dan Program Studi (id `datatable`)
+- [X] Tabel `fakultas` dan `prodi` sudah dibuat di database (import `tugas-3.sql`)
+- [X] CRUD Fakultas berfungsi (index, tambah, ubah, hapus)
+- [X] CRUD Program Studi berfungsi (index, tambah, ubah, hapus)
+- [X] Form Program Studi memiliki **select dropdown** untuk memilih Fakultas
+- [X] Form Program Studi memiliki **radio button** untuk memilih Strata
+- [X] Validasi server-side berfungsi di semua form (merah jika salah, hijau jika benar)
+- [X] Isi form lama tetap muncul (repopulate) saat validasi gagal
+- [X] SweetAlert muncul setelah tambah/ubah berhasil (success) dan setelah hapus (warning)
+- [X] SweetAlert konfirmasi muncul sebelum hapus (otomatis dari class `btn-hapus`)
+- [X] Jika data tidak ditemukan → redirect + SweetAlert warning
+- [X] Sidebar menu Fakultas dan Program Studi aktif (bold) sesuai halaman yang dibuka
+- [X] DataTable aktif di halaman index Fakultas dan Program Studi (id `datatable`)
 
 ---
 
@@ -278,6 +282,7 @@ mysql -u root -p nama_database < tugas-3.sql
 ```
 
 File tersebut berisi:
+
 - Struktur tabel `fakultas` dan `prodi`
 - Data awal 7 fakultas dan 22 program studi
 
@@ -295,4 +300,3 @@ File tersebut berisi:
 - ID bersifat manual (bukan auto increment), jadi perlu input ID di form tambah
 
 ---
-
