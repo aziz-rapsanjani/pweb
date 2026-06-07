@@ -7,7 +7,7 @@ class FakultasModel extends CI_Model {
     }
 
     public function getById($id){
-        return $this->db->get_where('fakultas', ['fakultas_id', $id])->row_array();
+        return $this->db->get_where('fakultas', ['fakultas_id' => $id])->row_array();
     }
 
     public function insert($data){

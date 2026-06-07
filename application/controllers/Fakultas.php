@@ -47,7 +47,7 @@ class Fakultas extends CI_Controller {
         $data['fakultas'] = null;
         $data['action'] = base_url('fakultas/tambah');
         $data['button'] = 'Simpan';
-        
+
         $header['title'] ='Tambah Data Fakultas';
         $this->load->view('layout/header', $header);
         $this->load->view('fakultas/form', $data);
@@ -70,9 +70,9 @@ class Fakultas extends CI_Controller {
             $this->form_validation->set_rules('fakultas_name','Nama Fakultas','required|min_length[3]|max_length[100]');
 
             if ($this->form_validation->run() == true) {
-                $formolir = $this->input->post();
+                $formulir = $this->input->post();
                 $data = [
-                    'fakultas_name' => $formolir['fakultas_name'],
+                    'fakultas_name' => $formulir['fakultas_name'],
                 ];
 
                 $this->FakultasModel->update($id, $data);
